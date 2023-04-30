@@ -5,7 +5,7 @@ import { API_KEY, BASE_URL } from 'services/theMoviesDbAPI';
 
 const Adress = () => {
   const { id } = useParams();
-  const [reviews, setReviews] = useState({});
+  const [reviews, setReviews] = useState([]);
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
   useEffect(() => {
@@ -19,16 +19,14 @@ const Adress = () => {
 
   return (
     reviews.length !== 0 && (
-      <div>
-        <>
-          {reviews.results.map(feedback => (
-            <div>
-              <h2>{feedback.author}</h2>
-              {feedback.content && <p>{feedback.content}</p>}
-            </div>
-          ))}
-        </>
-      </div>
+      <ul>
+        {reviews.results.map(feedback => (
+          <li key={feedback.id}>
+            <h2>{feedback.author}</h2>
+            {feedback.content && <p>{feedback.content}</p>}
+          </li>
+        ))}
+      </ul>
     )
   );
 };

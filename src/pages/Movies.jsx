@@ -18,7 +18,7 @@ const Movies = () => {
       .then(res => res.data.results)
       .then(setMovies);
     console.log(movies);
-  }, []);
+  }, [movies]);
 
   return (
     <div>

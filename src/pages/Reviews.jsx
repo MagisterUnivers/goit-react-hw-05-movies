@@ -15,7 +15,7 @@ const Reviews = () => {
       // setFetchCompleted(true);
       console.log(reviews);
     });
-  }, []);
+  }, [reviews, id]);
 
   return reviews.length !== 0 ? (
     <ul>

@@ -1,31 +1,36 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { API_KEY, BASE_URL } from 'services/theMoviesDbAPI';
 
 const Adress = () => {
-	const { id } = useParams()
-	const [address, setAdress] = useState({})
-	useEffect(() => {
-		console.log('mount')
-	}, [])
-	useEffect(() => {
-		axios
-			.get(`https://dummyjson.com/users/${id}`)
-			.then(res => setAdress(res.data))
-	}, [id])
-	return (
-		<div>
-			<>
-				<h2>{address.lastName}</h2>
-				{address.address && (
-					<>
-						<h2>{address.address.city}</h2>
-						<h2>{address.address.address}</h2>
-					</>
-				)}
-			</>
-		</div>
-	)
-}
+  const { id } = useParams();
+  const [reviews, setReviews] = useState({});
+  const [fetchCompleted, setFetchCompleted] = useState(false);
 
-export default Adress
+  useEffect(() => {
+    axios.get(`${BASE_URL}movie/${id}/reviews?api_key=${API_KEY}`).then(res => {
+      const reviews = res.data;
+      setReviews(reviews);
+      setFetchCompleted(true);
+      console.log(reviews);
+    });
+  }, [id]);
+
+  return (
+    reviews.length !== 0 && (
+      <div>
+        <>
+          {reviews.results.map(feedback => (
+            <div>
+              <h2>{feedback.author}</h2>
+              {feedback.content && <p>{feedback.content}</p>}
+            </div>
+          ))}
+        </>
+      </div>
+    )
+  );
+};
+
+export default Adress;

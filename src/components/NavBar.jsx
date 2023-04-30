@@ -5,7 +5,7 @@ export const NavBar = () => {
   const navMap = [
     { path: '/', title: 'Home' },
     { path: '/about', title: 'SearchBar' },
-    { path: '/users', title: 'Movies' },
+    { path: '/movies', title: 'Movies' },
   ];
   return (
     <SideBar>

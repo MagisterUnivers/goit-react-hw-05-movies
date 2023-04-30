@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { API_KEY, BASE_URL } from 'services/theMoviesDbAPI';
 
-const Posts = () => {
+const Cast = () => {
   const { id } = useParams();
   const [cast, setCast] = useState([]);
   const [fetchCompleted, setFetchCompleted] = useState(false);
@@ -46,4 +46,4 @@ const Posts = () => {
   );
 };
 
-export default Posts;
+export default Cast;

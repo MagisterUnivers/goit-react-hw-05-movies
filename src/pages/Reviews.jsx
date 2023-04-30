@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { API_KEY, BASE_URL } from 'services/theMoviesDbAPI';
 
-const Adress = () => {
+const Reviews = () => {
   const { id } = useParams();
   const [reviews, setReviews] = useState([]);
   const [fetchCompleted, setFetchCompleted] = useState(false);
@@ -31,4 +31,4 @@ const Adress = () => {
   );
 };
 
-export default Adress;
+export default Reviews;

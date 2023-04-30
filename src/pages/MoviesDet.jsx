@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, Outlet, useParams } from 'react-router-dom';
 import { API_KEY, BASE_URL } from 'services/theMoviesDbAPI';
 
-const User = () => {
+const MoviesDet = () => {
   const { id } = useParams();
   const [movieDetails, setMovies] = useState([]);
   const [fetchCompleted, setFetchCompleted] = useState(false);
@@ -44,12 +44,12 @@ const User = () => {
         </>
       )}
 
-      <Link to={`posts`}>CAST</Link>
+      <Link to={`cast`}>CAST</Link>
       <br />
-      <Link to={`adress`}>REVIEWS</Link>
+      <Link to={`reviews`}>REVIEWS</Link>
       <Outlet fallback={<h1>Loading...</h1>} />
     </div>
   );
 };
 
-export default User;
+export default MoviesDet;

@@ -19,7 +19,7 @@ const Home = () => {
       <ul>
         {movies.map((movie, index) => (
           <li key={movie.id}>
-            <Link to={`users/${movie.id}`}>
+            <Link to={`movies/${movie.id}`}>
               {/* <Link to={String(user.id)}> */}
               {movie.title
                 ? `${index + 1}. ${movie.title}`

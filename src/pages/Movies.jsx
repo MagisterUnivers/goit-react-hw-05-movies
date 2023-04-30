@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { API_KEY, BASE_URL } from 'services/theMoviesDbAPI';
 
-const Users = () => {
+const Movies = () => {
   // const [users, setUsers] = useState([])
   // useEffect(() => {
   // 	axios
@@ -39,4 +39,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Movies;

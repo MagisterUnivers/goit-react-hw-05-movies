@@ -6,13 +6,13 @@ import { API_KEY, BASE_URL } from 'services/theMoviesDbAPI';
 const Reviews = () => {
   const { id } = useParams();
   const [reviews, setReviews] = useState([]);
-  const [fetchCompleted, setFetchCompleted] = useState(false);
+  // const [fetchCompleted, setFetchCompleted] = useState(false);
 
   useEffect(() => {
     axios.get(`${BASE_URL}movie/${id}/reviews?api_key=${API_KEY}`).then(res => {
       const reviews = res.data;
       setReviews(reviews);
-      setFetchCompleted(true);
+      // setFetchCompleted(true);
       console.log(reviews);
     });
   }, []);

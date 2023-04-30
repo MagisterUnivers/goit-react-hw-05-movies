@@ -1,13 +1,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import { API_KEY, BASE_URL } from 'services/theMoviesDbAPI';
 import { Link } from 'react-router-dom';
 
 const Searchbar = () => {
-  const { id } = useParams();
+  // const { id } = useParams();
   const [searchField, setSearchField] = useState('');
-  const [fetchCompleted, setFetchCompleted] = useState(false);
+  // const [fetchCompleted, setFetchCompleted] = useState(false);
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ ${BASE_URL}search/movie?query=${word}&api_key=${API_KEY}`
       .then(response => {
         const movie = response.data.results;
         setMovies(movie);
-        setFetchCompleted(true);
+        // setFetchCompleted(true);
         console.log(movie);
       });
   };

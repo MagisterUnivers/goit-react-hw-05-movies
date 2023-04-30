@@ -6,13 +6,13 @@ import { API_KEY, BASE_URL } from 'services/theMoviesDbAPI';
 const Cast = () => {
   const { id } = useParams();
   const [cast, setCast] = useState([]);
-  const [fetchCompleted, setFetchCompleted] = useState(false);
+  // const [fetchCompleted, setFetchCompleted] = useState(false);
 
   useEffect(() => {
     axios.get(`${BASE_URL}movie/${id}/credits?api_key=${API_KEY}`).then(res => {
       const cast = res.data;
       setCast(cast);
-      setFetchCompleted(true);
+      // setFetchCompleted(true);
       console.log(cast);
     });
   }, [id]);

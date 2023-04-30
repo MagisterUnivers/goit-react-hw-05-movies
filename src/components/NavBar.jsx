@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const NavBar = () => {
   const navMap = [
     { path: '/', title: 'Home' },
-    { path: '/about', title: 'SearchBar' },
+    { path: '/searchbar', title: 'SearchBar' },
     { path: '/movies', title: 'Movies' },
   ];
   return (

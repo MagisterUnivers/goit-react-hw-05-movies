@@ -23,7 +23,6 @@ const MoviesDet = () => {
       });
   }, [id]);
 
-  // const { firstName, lastName, age, image, phone, email } = user;
   return (
     <div>
       <h1>You see a movie #{id}</h1>

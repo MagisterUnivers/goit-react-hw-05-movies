@@ -15,19 +15,19 @@ const Reviews = () => {
       setFetchCompleted(true);
       console.log(reviews);
     });
-  }, [id]);
+  }, []);
 
-  return (
-    reviews.length !== 0 && (
-      <ul>
-        {reviews.results.map(feedback => (
-          <li key={feedback.id}>
-            <h2>{feedback.author}</h2>
-            {feedback.content && <p>{feedback.content}</p>}
-          </li>
-        ))}
-      </ul>
-    )
+  return reviews.length !== 0 ? (
+    <ul>
+      {reviews.results.map(feedback => (
+        <li key={feedback.id}>
+          <h2>{feedback.author}</h2>
+          {feedback.content && <p>{feedback.content}</p>}
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <h2>There are no Reviews</h2>
   );
 };
 

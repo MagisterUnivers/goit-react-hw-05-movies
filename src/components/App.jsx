@@ -1,29 +1,75 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Layout } from './Layout';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import NotFound from '../pages/NotFound';
-import Cast from 'pages/Cast';
-import Home from 'pages/Home';
-import Movies from 'pages/Movies';
-import MoviesDet from 'pages/MoviesDet';
-import Reviews from 'pages/Reviews';
 
-export const App = () => {
+const Cast = lazy(() => import('pages/Cast'));
+const Home = lazy(() => import('pages/Home'));
+const Movies = lazy(() => import('pages/Movies'));
+const MoviesDet = lazy(() => import('pages/MoviesDet'));
+const Reviews = lazy(() => import('pages/Reviews'));
+const SearchBar = lazy(() => import('pages/SearchBar'));
+
+const App = () => {
   return (
     <>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<h1>Hello, about</h1>} />
-          <Route path="movies" element={<Movies />} />
+          <Route
+            index
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Home />
+              </Suspense>
+            }
+          />
+          <Route
+            path="searchbar"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <SearchBar />
+              </Suspense>
+            }
+          />
+          <Route
+            path="movies"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Movies />
+              </Suspense>
+            }
+          />
           <Route path="movies-list" element={<Navigate to="/movies" />} />
-          <Route path="movies/:id" element={<MoviesDet />}>
+          <Route
+            path="movies/:id"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <MoviesDet />
+              </Suspense>
+            }
+          >
             <Route
               index
-              element={<h1> Натисни на кнопку подивитись пости</h1>}
+              element={
+                <h1> Click "Cast" or "Reviews" to see more information</h1>
+              }
             />
-            <Route path="cast" element={<Cast />} />
-            <Route path="reviews" element={<Reviews />} />
+            <Route
+              path="cast"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Cast />
+                </Suspense>
+              }
+            />
+            <Route
+              path="reviews"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Reviews />
+                </Suspense>
+              }
+            />
           </Route>
 
           <Route path="*" element={<NotFound />} />
@@ -32,3 +78,5 @@ export const App = () => {
     </>
   );
 };
+
+export default App;

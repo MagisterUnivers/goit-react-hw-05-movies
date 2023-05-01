@@ -1,39 +1,35 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-// import { useParams } from 'react-router-dom';
-import { API_KEY, BASE_URL } from 'services/theMoviesDbAPI';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { searchMovieByKeyword } from 'services/theMoviesDbAPI';
 import { Link } from 'react-router-dom';
 
 const Searchbar = () => {
-  // const { id } = useParams();
-  const [searchField, setSearchField] = useState('');
-  // const [fetchCompleted, setFetchCompleted] = useState(false);
-  const [movies, setMovies] = useState([]);
+  const { state } = useLocation();
+  const submittedSearchQuery = state?.searchQuery;
+
+  const [searchQuery, setSearchQuery] = useState(submittedSearchQuery || '');
 
   useEffect(() => {
-    console.log(searchField);
-  }, [searchField]);
+    if (submittedSearchQuery) {
+      searchMovieByKeyword(submittedSearchQuery).then(response => {
+        const movie = response.data.results;
+        setMovies(movie);
+      });
+    }
+  }, [submittedSearchQuery]);
+
+  const [movies, setMovies] = useState([]);
+  const navigate = useNavigate();
 
   const handleSubmit = e => {
     e.preventDefault();
-    const { search } = e.target.elements;
-    setSearchField(search.value);
-    // console.log(searchField);
-    handleSearchFinder(search.value);
-  };
 
-  const handleSearchFinder = word => {
-    axios
-      .get(
-        `
-${BASE_URL}search/movie?query=${word}&api_key=${API_KEY}`
-      )
-      .then(response => {
-        const movie = response.data.results;
-        setMovies(movie);
-        // setFetchCompleted(true);
-        console.log(movie);
-      });
+    if (searchQuery) {
+      navigate('', { state: { searchQuery: searchQuery }, replace: false });
+    } else {
+      navigate('', { state: { searchQuery: null }, replace: true });
+      setMovies([]);
+    }
   };
 
   return (
@@ -43,7 +39,14 @@ ${BASE_URL}search/movie?query=${word}&api_key=${API_KEY}`
         <form onSubmit={handleSubmit}>
           <label>
             Search:
-            <input type="text" name="search" />
+            <input
+              type="text"
+              name="search"
+              value={searchQuery}
+              onChange={e => {
+                setSearchQuery(e.target.value);
+              }}
+            />
           </label>
           {/* <button type="submit">Search</button> */}
         </form>

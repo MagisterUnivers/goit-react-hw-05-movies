@@ -1,23 +1,22 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { API_KEY, BASE_URL } from 'services/theMoviesDbAPI';
+import { getReviewsById } from 'services/theMoviesDbAPI';
 
 const Reviews = () => {
   const { id } = useParams();
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState({ results: [] });
   // const [fetchCompleted, setFetchCompleted] = useState(false);
 
   useEffect(() => {
-    axios.get(`${BASE_URL}movie/${id}/reviews?api_key=${API_KEY}`).then(res => {
+    getReviewsById(id).then(res => {
       const reviews = res.data;
       setReviews(reviews);
       // setFetchCompleted(true);
       console.log(reviews);
     });
-  }, [reviews, id]);
+  }, [id]);
 
-  return reviews.length !== 0 ? (
+  return reviews.results.length !== 0 ? (
     <ul>
       {reviews.results.map(feedback => (
         <li key={feedback.id}>

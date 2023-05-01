@@ -3,11 +3,11 @@ import { Layout } from './Layout';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import NotFound from '../pages/NotFound';
 
-const Cast = lazy(() => import('pages/Cast'));
+const Cast = lazy(() => import('components/Cast'));
 const Home = lazy(() => import('pages/Home'));
 const Movies = lazy(() => import('pages/Movies'));
 const MoviesDet = lazy(() => import('pages/MoviesDet'));
-const Reviews = lazy(() => import('pages/Reviews'));
+const Reviews = lazy(() => import('components/Reviews'));
 const SearchBar = lazy(() => import('pages/SearchBar'));
 
 const App = () => {

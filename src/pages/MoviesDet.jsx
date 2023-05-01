@@ -1,27 +1,27 @@
-import axios from 'axios';
+import { getMovieDetailsById } from 'services/theMoviesDbAPI';
 import React, { useEffect, useState } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
-import { API_KEY, BASE_URL } from 'services/theMoviesDbAPI';
+import { Link, useNavigate, Outlet, useParams } from 'react-router-dom';
 
 const MoviesDet = () => {
   const { id } = useParams();
-  const [movieDetails, setMovies] = useState([]);
+  const [movieDetails, setMovies] = useState({});
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    axios
-      .get(`${BASE_URL}movie/${id}?api_key=${API_KEY}`)
-      .then(response => {
-        const movieDetails = response.data;
+    getMovieDetailsById(id)
+      .then(movieDetails => {
         setMovies(movieDetails);
         setFetchCompleted(true);
         console.log(movieDetails);
       })
       .catch(error => {
+        navigate('incorrect way');
         setFetchCompleted(true);
         console.log(error);
       });
-  }, [id]);
+  }, [id, navigate]);
 
   return (
     <div>

@@ -1,7 +1,6 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { API_KEY, BASE_URL } from 'services/theMoviesDbAPI';
+import { getTrendingMovies } from 'services/theMoviesDbAPI';
 
 const Movies = () => {
   // const [users, setUsers] = useState([])
@@ -12,13 +11,13 @@ const Movies = () => {
   // }, [])
 
   const [movies, setMovies] = useState([]);
+
   useEffect(() => {
-    axios
-      .get(`${BASE_URL}trending/all/day?api_key=${API_KEY}`)
-      .then(res => res.data.results)
-      .then(setMovies);
-    console.log(movies);
-  }, [movies]);
+    getTrendingMovies().then(res => {
+      const movies = res.data.results;
+      setMovies(movies);
+    });
+  }, []); // esling-ignore-line
 
   return (
     <div>

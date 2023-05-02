@@ -1,32 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { getTrendingMovies } from 'services/theMoviesDbAPI';
-import { Link } from 'react-router-dom';
-
 const Home = () => {
-  const [movies, setMovies] = useState([]);
+  // const [movies, setMovies] = useState([]);
 
-  useEffect(() => {
-    getTrendingMovies().then(res => {
-      const movies = res.data.results;
-      setMovies(movies);
-    });
-  }, []); // esling-ignore-line
+  // useEffect(() => {
+  //   getTrendingMovies().then(res => {
+  //     const movies = res.data.results;
+  //     setMovies(movies);
+  //   });
+  // }, []); // esling-ignore-line
 
   return (
     <div>
-      <h1>Trending Movies</h1>
-      <ul>
-        {movies.map((movie, index) => (
-          <li key={movie.id}>
-            <Link to={`movies/${movie.id}`}>
-              {/* <Link to={String(user.id)}> */}
-              {movie.title
-                ? `${index + 1}. ${movie.title}`
-                : `${index + 1}. ${movie.name}`}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <h1>Welcome to FairyMovie®</h1>
+
+      <h2>On our site you can search for a movie.</h2>
+      <h2>
+        You can read about movie, see whos got the role in it, and see reviews
+        for it.
+      </h2>
     </div>
   );
 };

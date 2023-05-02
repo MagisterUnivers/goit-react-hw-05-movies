@@ -35,11 +35,29 @@ const Searchbar = () => {
   return (
     <>
       <div>
-        <h1>HELLO. I am here to help you find things</h1>
+        <h1>HELLO</h1>
+        <h2>I am here to help you find things</h2>
         <form onSubmit={handleSubmit}>
           <label>
-            Search:
+            <span
+              style={{
+                fontSize: '20px',
+                fontStyle: 'italic',
+                color: 'black',
+                fontWeight: 'bold',
+              }}
+            >
+              Search:
+            </span>
+            <br></br>
             <input
+              style={{
+                width: '200px',
+                marginTop: '10px',
+                padding: '5px',
+                border: '2px solid black',
+              }}
+              placeholder="Type a movie you want to find"
               type="text"
               name="search"
               value={searchQuery}

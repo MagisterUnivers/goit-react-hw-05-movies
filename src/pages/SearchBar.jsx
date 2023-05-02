@@ -1,35 +1,54 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { searchMovieByKeyword } from 'services/theMoviesDbAPI';
 import { Link } from 'react-router-dom';
 
 const Searchbar = () => {
-  const { state } = useLocation();
-  const submittedSearchQuery = state?.searchQuery;
+  const [movies, setMovies] = useState([]);
+  const [inputValue, setInputValue] = useState('');
+  const [searchQuery, setSearchQuery] = useSearchParams();
+  const query = searchQuery.get('query');
+  const location = useLocation();
 
-  const [searchQuery, setSearchQuery] = useState(submittedSearchQuery || '');
+  // const { state } = useLocation();
+  // const submittedSearchQuery = state?.searchQuery;
+
+  // const [searchQuery, setSearchQuery] = useState(submittedSearchQuery || '');
+
+  // useEffect(() => {
+  //   if (submittedSearchQuery) {
+  //     searchMovieByKeyword(submittedSearchQuery).then(response => {
+  //       const movie = response.data.results;
+  //       setMovies(movie);
+  //     });
+  //   }
+  // }, [submittedSearchQuery]);
+
+  // const [movies, setMovies] = useState([]);
+  // const navigate = useNavigate();
 
   useEffect(() => {
-    if (submittedSearchQuery) {
-      searchMovieByKeyword(submittedSearchQuery).then(response => {
-        const movie = response.data.results;
-        setMovies(movie);
-      });
+    if (query) {
+      searchMovieByKeyword(query)
+        .then(res => {
+          setMovies(res.data.results);
+        })
+        .catch(error => {
+          console.log(error.message);
+        });
     }
-  }, [submittedSearchQuery]);
-
-  const [movies, setMovies] = useState([]);
-  const navigate = useNavigate();
+  }, [query]);
 
   const handleSubmit = e => {
     e.preventDefault();
 
-    if (searchQuery) {
-      navigate('', { state: { searchQuery: searchQuery }, replace: false });
-    } else {
-      navigate('', { state: { searchQuery: null }, replace: true });
-      setMovies([]);
-    }
+    setSearchQuery({ query: e.currentTarget.search.value });
+    // if (searchQuery) {
+    //   navigate('', { state: { searchQuery: searchQuery }, replace: false });
+    // } else {
+    //   navigate('', { state: { searchQuery: null }, replace: true });
+    //   setMovies([]);
+    // }
   };
 
   return (
@@ -60,9 +79,9 @@ const Searchbar = () => {
               placeholder="Type a movie you want to find"
               type="text"
               name="search"
-              value={searchQuery}
+              value={inputValue}
               onChange={e => {
-                setSearchQuery(e.target.value);
+                setInputValue(e.currentTarget.value);
               }}
             />
           </label>
@@ -76,7 +95,7 @@ const Searchbar = () => {
               movies.map((movie, index) => (
                 <li key={movie.id}>
                   {/* <Link to={location => ({ ...location, pathname: "/courses" })} /> */}
-                  <Link to={`/movies/${movie.id}`}>
+                  <Link to={`/movies/${movie.id}`} state={{ from: location }}>
                     {/* <Link to={String(user.id)}> */}
                     {movie.title
                       ? `${index + 1}. ${movie.title}`

@@ -5,6 +5,7 @@ import { getCastById } from 'services/theMoviesDbAPI';
 const Cast = () => {
   const { id } = useParams();
   const [cast, setCast] = useState({ cast: [] });
+
   // const [fetchCompleted, setFetchCompleted] = useState(false);
 
   useEffect(() => {

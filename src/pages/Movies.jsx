@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { getTrendingMovies } from 'services/theMoviesDbAPI';
 
 const Movies = () => {
@@ -11,6 +11,7 @@ const Movies = () => {
   // }, [])
 
   const [movies, setMovies] = useState([]);
+  const location = useLocation();
 
   useEffect(() => {
     getTrendingMovies().then(res => {
@@ -25,7 +26,7 @@ const Movies = () => {
       <ul>
         {movies.map((movie, index) => (
           <li key={movie.id}>
-            <Link to={`${movie.id}`}>
+            <Link to={`${movie.id}`} state={{ from: location }}>
               {/* <Link to={String(user.id)}> */}
               {movie.title
                 ? `${index + 1}. ${movie.title}`

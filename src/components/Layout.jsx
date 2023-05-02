@@ -1,17 +1,17 @@
 import React from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 import { NavBar } from './NavBar';
 
 export const Layout = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  // const location = useLocation();
   return (
     <LayoutWrapper>
       <NavBar />
       <WrapperOutlet>
-        <button onClick={() => navigate(-1)}>Back</button>
-        <button onClick={() => navigate(1)}>Next</button>
-
+        {/* <button onClick={() => navigate()}>Back</button>
+        <button onClick={() => navigate()}>Next</button> */}
         <Outlet />
       </WrapperOutlet>
     </LayoutWrapper>

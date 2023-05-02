@@ -5,6 +5,7 @@ import { getReviewsById } from 'services/theMoviesDbAPI';
 const Reviews = () => {
   const { id } = useParams();
   const [reviews, setReviews] = useState({ results: [] });
+
   // const [fetchCompleted, setFetchCompleted] = useState(false);
 
   useEffect(() => {
